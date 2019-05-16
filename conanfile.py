@@ -9,7 +9,7 @@ from conans.errors import ConanInvalidConfiguration
 
 class LibeventConan(ConanFile):
     name = "libevent"
-    version = "2.1.8"
+    version = "2.1.9"
     description = "libevent - an event notification library"
     topics = ("conan", "libevent", "event")
     url = "https://github.com/zinnion/conan-libevent"
@@ -17,7 +17,6 @@ class LibeventConan(ConanFile):
     author = "Zinnion <mauro@zinnion.com>"
     license = "BSD-3-Clause"
     exports = ["LICENSE.md"]
-    exports_sources = ["print-winsock-errors.c"]
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False],
                "fPIC": [True, False],
@@ -46,12 +45,12 @@ class LibeventConan(ConanFile):
 
     def requirements(self):
         if self.options.with_openssl:
-            self.requires.add("OpenSSL/1.0.2r@conan/stable")
+            self.requires.add("OpenSSL/1.1.1b@zinnion/stable")
 
     def source(self):
-        checksum = "965cc5a8bb46ce4199a47e9b2c9e1cae3b137e8356ffdad6d94d3b9069b71dc2"
-        tools.get("{0}/releases/download/release-{1}-stable/libevent-{1}-stable.tar.gz".format(self.homepage, self.version), sha256=checksum)
-        extracted_folder = "libevent-{0}-stable".format(self.version)
+        checksum = "eeb4c6eb2c4021e22d6278cdcd02815470243ed81077be0cbd0f233fa6fc07e8"
+        tools.get("{0}/releases/download/release-{1}-beta/libevent-{1}-beta.tar.gz".format(self.homepage, self.version), sha256=checksum)
+        extracted_folder = "libevent-{0}-beta".format(self.version)
         os.rename(extracted_folder, self._source_subfolder)
 
     def imports(self):
@@ -67,7 +66,6 @@ class LibeventConan(ConanFile):
             self.copy("*.dylib*", dst=self._source_subfolder, keep_path=False)
 
     def build(self):
-        shutil.copy("print-winsock-errors.c", os.path.join(self._source_subfolder, "test"))
         if self.settings.os == "Linux" or self.settings.os == "Macos":
 
             autotools = AutoToolsBuildEnvironment(self)
