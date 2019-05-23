@@ -40,6 +40,7 @@ class LibeventConan(ConanFile):
         if self.options.with_openssl and self.options.shared:
             # static OpenSSL cannot be properly detected because libevent picks up system ssl first
             # so enforce shared openssl
+            os.environ['OPENSSL_ROOT_DIR'] = self.deps_cpp_info["OpenSSL"].rootpath
             self.output.warn("Enforce shared OpenSSL for shared build")
             self.options["OpenSSL"].shared = self.options.shared
 
