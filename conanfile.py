@@ -44,9 +44,9 @@ class LibeventConan(ConanFile):
             self.output.warn("Enforce shared OpenSSL for shared build")
             self.options["OpenSSL"].shared = self.options.shared
 
-    def requirements(self):
-        if self.options.with_openssl:
-            self.requires.add("OpenSSL/1.1.1b@zinnion/stable")
+    #def requirements(self):
+        #if self.options.with_openssl:
+        #    self.requires.add("OpenSSL/1.1.1b@zinnion/stable")
 
     def source(self):
         checksum = "eeb4c6eb2c4021e22d6278cdcd02815470243ed81077be0cbd0f233fa6fc07e8"
